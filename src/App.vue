@@ -20,6 +20,17 @@
 <script type="text/ecmascript-6">
   import header from './components/header/header.vue';
   export default {
+    data(){
+      return {
+        seller: {}
+      };
+    },
+    created(){
+      this.$http.get('/api/seller').then(response => {
+        response = response.body;
+        console.log(response);
+      });
+    },
     components: {
       'v-header': header
     }
