@@ -22,25 +22,56 @@
         <i class="icon-keyboard_arrow_right"></i>
       </div>
     </div>
-    <div class="bulletin-wrapper">
+    <div class="bulletin-wrapper" @click="showDetail">
       <span class="bulletin-title"></span><span class="bulletin-text">{{ seller.bulletin }}</span>
       <i class="icon-keyboard_arrow_right"></i>
     </div>
     <div class="background">
       <img :src="seller.avatar" width="100%" height="100%">
     </div>
+    <div class="detail" v-if="detailShow">
+      <div class="detail-wrapper clearfix">
+        <div class="detail-main">
+          <h1 class="name">{{ seller.name }}</h1>
+          <div class="star-wrapper">
+            <star :size="48" :score="seller.score"></star>
+          </div>
+        </div>
+      </div>
+      <div class="detail-close" @click="hideDetail">
+        <i class="icon-close"></i>
+      </div>
+    </div>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
+  import star from 'components/star/star';
+
   export default {
     props: {
       seller: {
         type: Object
       }
     },
+    data() {
+      return {
+        detailShow: false
+      };
+    },
+    methods: {
+      showDetail() {
+        this.detailShow = true;
+      },
+      hideDetail() {
+        this.detailShow = false;
+      }
+    },
     created() {
       this.classMap = ['decrease', 'discount', 'special', 'invoice', 'guarantee'];
+    },
+    components: {
+      star
     }
   };
 </script>
@@ -159,5 +190,37 @@
       height: 100%
       z-index: -1
       filter: grayscale()
-
+    .detail
+      position: fixed
+      top: 0
+      left: 0
+      z-index: 100
+      width: 100%
+      height: 100%
+      overflow: auto
+      background: rgba(7, 17, 27, 0.8)
+      backdrop-filter: blur(10px)
+      .detail-wrapper
+        width: 100%
+        min-height: 100%
+        .detail-main
+          margin-top: 64px
+          padding-bottom: 64px
+          .name
+            line-height: 16px
+            text-align: center
+            font-size: 16px
+            font-weight: 700px
+          .star-wrapper
+            margin-top: 18px
+            padding: 2px 0
+            text-align: center
+            margin-bottom: 28px
+      .detail-close
+        position: relative
+        width: 32px
+        height: 32px
+        margin: -64px auto 0 auto
+        clear: both
+        font-size: 32px
 </style>
