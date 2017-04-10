@@ -11,9 +11,6 @@ npm install -g
 # serve with hot reload at localhost:8080
 npm run dev
 
-# build for production with minification
-npm run build
-
 ```
 
 ## 模拟后台数据核心代码
